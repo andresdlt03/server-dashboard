@@ -1,0 +1,19 @@
+@use "../variables" as v;
+
+.topbar {
+
+  &__container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+}
+
+.title {
+  color: v.$white;
+  font-size: v.$title-size;
+  font-weight: 600;
+}

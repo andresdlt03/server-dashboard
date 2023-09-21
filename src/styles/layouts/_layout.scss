@@ -1,0 +1,25 @@
+@use "../variables" as v;
+
+.layout {
+
+  width: 100%;
+
+  &__background {
+    background: v.$background-color;
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+  }
+
+}
+
+.main {
+
+  &__container {
+    width: 100%;
+    padding: 7.2rem;
+  }
+
+}
