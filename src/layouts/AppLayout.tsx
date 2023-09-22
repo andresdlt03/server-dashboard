@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom"
 import { Navbar } from "../components"
-import { Topbar } from "./"
 
 export const Layout = () => {
   return (
@@ -14,7 +13,6 @@ export const Layout = () => {
         </div>
 
       </div>
-      {/* TODO: CARGAR EL OUTLET */}
     </>
   )
 }

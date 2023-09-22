@@ -3,10 +3,12 @@
 .navbar {
 
   &__container {
+    position: sticky;
+    top: 0;
     display: flex;
     align-items: center;
     padding: 0 1rem;
-    height: 100%;
+    height: 100vh;
     width: fit-content;
     background-color: v.$blue;
   }

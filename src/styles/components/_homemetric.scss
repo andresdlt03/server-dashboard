@@ -1,0 +1,9 @@
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.home-metric {
+  flex: 1;
+  background-color: v.$blue;
+  border-radius: 2rem;
+  @include m.box-shadow;
+}

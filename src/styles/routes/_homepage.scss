@@ -1,0 +1,67 @@
+@use "../variables" as v;
+
+.home {
+
+  &__container {
+    width: 100%;
+    color: v.$white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8rem;
+  }
+
+  &__app-container, &__alerts-container {
+    height: 40rem;
+  }
+
+  &__server-container, &__app-container, &__alerts-container {
+    border-radius: 2rem;
+  }
+
+  &__server-section, &__app-section, &__alerts-section {
+    h2 {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__server {
+
+    &-section {
+      width: 100%;
+    }
+
+    &-container {
+      height: 20rem;
+      display: flex;
+      gap: 2rem;
+    }
+
+  }
+
+  &__app {
+
+    &-section {
+      flex: 1;
+    }
+
+    &-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+  }
+
+  &__alerts {
+
+    &-section {
+      flex: 1;
+    }
+
+    &-container {
+      
+    }
+
+  }
+
+}
