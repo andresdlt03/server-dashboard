@@ -4,6 +4,7 @@ import { Layout } from "./layouts"
 import { HomePage, ServerPage, AppPage, AlertsPage } from "./routes"
 
 import "./styles/main.scss"
+import { useMetricsStore } from "./store/MetricsStore"
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
 ])
 
 export const App = () => {
+
+  const generateMetrics = useMetricsStore(state => state.generateRandomMetrics);
+  generateMetrics();
+
   return (
     <RouterProvider router={router} />
   )
