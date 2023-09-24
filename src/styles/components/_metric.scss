@@ -24,9 +24,7 @@
 
 }
 
-.metric-cpu {
-  grid-column: 1 / 2;
-}
+// SERVER DISTRIBUTION
 
 .metric-storage {
   grid-column: 2 / 4;
@@ -36,10 +34,16 @@
   grid-column: 1 / 3
 }
 
-.metric-temperature {
-  grid-column: 3 / 4;
-}
-
 .metric-ram {
   grid-column: 1 / 4;
+}
+
+// APP DISTRIBUTION
+
+.metric-response_time {
+  grid-column: 1 / 3;
+}
+
+.metric-database_delay {
+  grid-column: 2 / 4
 }

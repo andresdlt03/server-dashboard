@@ -7,7 +7,7 @@ interface HomeMetricProps {
 
 export const HomeMetric : React.FC<HomeMetricProps> = ({name}) => {
 
-  const {abr, values, color, unit} = useMetricsStore(state => state.metrics[name])
+  const {abr, values, color, unit} = useMetricsStore(state => state.metrics[name]);
 
   return (
     <div className="home-metric">

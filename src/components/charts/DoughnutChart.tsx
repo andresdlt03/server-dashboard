@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 // @ts-ignore
 import CanvasJS from "@canvasjs/charts";
+import { useMetricsStore } from "../../store/MetricsStore";
 
 interface DoughnutChartProps {
   name: string,
@@ -12,6 +13,8 @@ interface DoughnutChartProps {
 
 export const DoughnutChart : React.FC<DoughnutChartProps> = ({name, values, color, unit, abr}) => {
 
+  const {max} = useMetricsStore(state => state.ranges[name]);
+
   useEffect(() => {
     const chart = new CanvasJS.Chart(`chart-${name}`, {
       animationDuration: 1000,
@@ -20,6 +23,9 @@ export const DoughnutChart : React.FC<DoughnutChartProps> = ({name, values, colo
       },
       backgroundColor: "transparent",
       height: 210,
+      toolTip: {
+        enabled: false
+      },
       data: [
         {
           type: 'doughnut',
@@ -28,9 +34,8 @@ export const DoughnutChart : React.FC<DoughnutChartProps> = ({name, values, colo
           explodeOnClick: false,
           indexLabelFontColor: "white",
           dataPoints: [
-            {y: values[values.length - 1], color: `${color}`, label: `${abr}`, exploded: true, 
-            indexLabel: `{label} - ${values[values.length - 1]}${unit}`,},
-            {y: 100 - values[values.length - 1], color: "#909090"},
+            {y: values[values.length - 1], color: `${color}`, label: `${abr}`, exploded: true, indexLabel: `{label} - ${values[values.length - 1]}${unit}`,},
+            {y: max - values[values.length - 1], color: "#909090"},
           ],
         },
       ],

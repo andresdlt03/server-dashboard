@@ -8,10 +8,18 @@ interface MetricData {
   unit: string
 }
 
+interface Range {
+  min: number,
+  max: number
+}
+
 interface MetricsStore {
   metrics: {
     [key: string]: MetricData
   },
+  ranges: {
+    [key: string]: Range
+  }
   generateRandomMetrics: () => void
 }
 
@@ -74,6 +82,45 @@ export const useMetricsStore = create<MetricsStore>()((set) => ({
     }
   },
 
+  ranges: {
+    cpu: {
+      min: 0,
+      max: 100
+    },
+    ram: {
+      min: 0,
+      max: 5
+    },
+    storage: {
+      min: 0,
+      max: 100,
+    },
+    bandwidth: {
+      min: 0,
+      max: 1000
+    },
+    temperature: {
+      min: 0,
+      max: 100
+    },
+    response_time: {
+      min: 0,
+      max: 600
+    },
+    connections: {
+      min: 0,
+      max: 10000
+    },
+    database_delay: {
+      min: 0,
+      max: 1000
+    },
+    responses_per_second: {
+      min: 0,
+      max: 5000
+    }
+  },
+
   generateRandomMetrics: () => {
 
     const generatedCpuData = generateData(10, 1, 100);
@@ -82,7 +129,7 @@ export const useMetricsStore = create<MetricsStore>()((set) => ({
     const generatedBandwidthData = generateData(10, 1, 1000);
     const generatedTemperatureData = generateData(10, 1, 100);
     const generatedResponseTimeData = generateData(10, 50, 600);
-    const generatedConnectionsData = generateData(10, 50, 1000);
+    const generatedConnectionsData = generateData(10, 50, 10000);
     const generatedDatabaseDelayData = generateData(10, 50, 1000);
     const generatedResponsesPerSecondData = generateData(10, 20, 5000);
 
