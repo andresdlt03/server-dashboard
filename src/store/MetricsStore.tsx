@@ -80,7 +80,7 @@ export const useMetricsStore = create<MetricsStore>()((set) => ({
     const generatedRamData = generateData(10, 2, 5);
     const generatedStorageData = generateData(10, 1, 100);
     const generatedBandwidthData = generateData(10, 1, 1000);
-    const generatedTemperatureData = generateData(10, 1, 60);
+    const generatedTemperatureData = generateData(10, 1, 100);
     const generatedResponseTimeData = generateData(10, 50, 600);
     const generatedConnectionsData = generateData(10, 50, 1000);
     const generatedDatabaseDelayData = generateData(10, 50, 1000);

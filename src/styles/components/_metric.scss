@@ -1,0 +1,45 @@
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.metric {
+
+  width: 100%;
+  min-width: 25rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  color: v.$white;
+  @include m.metric-base;
+
+  &__title {
+    font-size: 2rem;
+  }
+
+  &__separator {
+    width: 100%;
+    height: 0.1rem;
+    background-color: v.$white;
+    margin: 1rem 0;
+  }
+
+}
+
+.metric-cpu {
+  grid-column: 1 / 2;
+}
+
+.metric-storage {
+  grid-column: 2 / 4;
+}
+
+.metric-bandwidth {
+  grid-column: 1 / 3
+}
+
+.metric-temperature {
+  grid-column: 3 / 4;
+}
+
+.metric-ram {
+  grid-column: 1 / 4;
+}

@@ -6,10 +6,7 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
-  border-radius: 2rem;
-  padding: 2rem;
-  background-color: v.$blue;
-  @include m.box-shadow;
+  @include m.metric-base;
 
   &__chart {
     flex: 1;

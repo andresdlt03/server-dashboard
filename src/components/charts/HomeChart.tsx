@@ -14,6 +14,8 @@ export const HomeChart : React.FC<HomeChartProps> = ({name, values, color}) => {
 
   useEffect(() => {
     const chart = new CanvasJS.Chart(`chart-${name}`, {
+      animationDuration: 1000,
+      animationEnabled: true,
       title: {
       },
       backgroundColor: "transparent",
