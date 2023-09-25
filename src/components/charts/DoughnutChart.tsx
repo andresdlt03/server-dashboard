@@ -13,7 +13,7 @@ interface DoughnutChartProps {
 
 export const DoughnutChart : React.FC<DoughnutChartProps> = ({name, values, color, unit, abr}) => {
 
-  const {max} = useMetricsStore(state => state.ranges[name]);
+  const {max} = useMetricsStore(state => state.metrics[name].range);
 
   useEffect(() => {
     const chart = new CanvasJS.Chart(`chart-${name}`, {

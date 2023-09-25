@@ -1,10 +1,10 @@
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
+import { useMetricsStore } from "./store/MetricsStore"
 
 import { Layout } from "./layouts"
-import { HomePage, ServerPage, AppPage, AlertsPage } from "./routes"
+import { HomePage, ServerPage, AppPage } from "./routes"
 
 import "./styles/main.scss"
-import { useMetricsStore } from "./store/MetricsStore"
 
 const router = createBrowserRouter([
   {
@@ -24,10 +24,6 @@ const router = createBrowserRouter([
         path: "/server"
       },
       {
-        element: <AlertsPage />,
-        path: "/alerts"
-      },
-      {
         element: <Navigate to="/"/>,
         path: "*"
       }
@@ -37,8 +33,8 @@ const router = createBrowserRouter([
 
 export const App = () => {
 
-  const generateMetrics = useMetricsStore(state => state.generateRandomMetrics);
-  generateMetrics();
+  const generateState = useMetricsStore(state => state.generateRandomState);
+  generateState();
 
   return (
     <RouterProvider router={router} />

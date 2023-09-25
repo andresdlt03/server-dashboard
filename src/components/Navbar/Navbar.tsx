@@ -9,7 +9,6 @@ export const Navbar = () => {
         <NavbarButton iconName="home_icon.svg" />
         <NavbarButton iconName="server_icon.svg" />
         <NavbarButton iconName="app_icon.svg" />
-        <NavbarButton iconName="alerts_icon.svg" />
       </div>
 
     </div>

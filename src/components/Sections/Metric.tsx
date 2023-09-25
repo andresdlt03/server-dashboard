@@ -1,5 +1,5 @@
-import { useMetricsStore } from "../store/MetricsStore"
-import { SplineAreaChart, DoughnutChart } from "./charts"
+import { useMetricsStore } from "../../store/MetricsStore"
+import { SplineAreaChart, DoughnutChart } from "../Charts"
 
 interface MetricProps {
   name: string,
@@ -11,15 +11,15 @@ export const Metric : React.FC<MetricProps> = ({name, type}) => {
   const {abr, values, color, unit} = useMetricsStore(state => state.metrics[name])
 
   return (
-    <div className={`metric metric-${name}`}>
+    <div className={`section section-${name}`}>
 
-      <p className="metric__title">{name.toUpperCase()} - <span style={{color: `${color}`}}>{values[values.length - 1]}{unit}</span></p>
+      <p className="section__title">{name.toUpperCase()} - <span style={{color: `${color}`}}>{values[values.length - 1]}{unit}</span></p>
 
-      <div className="metric__separator"></div>
+      <div className="section__separator"></div>
 
-      <div className="metric__chart">
+      <div className="section__chart">
         {type == 'doughnut' ? (
-        // Renderizar contenido si type es "doughnut"
+        // Render doughnut chart
         <DoughnutChart
           name={name}
           values={values}
@@ -28,7 +28,7 @@ export const Metric : React.FC<MetricProps> = ({name, type}) => {
           abr={abr}
         />
         ) : type == 'splineArea' ? (
-          // Renderizar contenido si type es "spline area"
+          // Render Spline Area chart
           <SplineAreaChart
             name={name}
             values={values}

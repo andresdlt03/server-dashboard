@@ -1,11 +1,12 @@
 import { create } from 'zustand';
-import { generateData } from '../helpers';
+import { generateData, generateRandomAlerts } from '../helpers';
 
 interface MetricData {
   abr: string,
   values: number[],
   color: string,
-  unit: string
+  unit: string,
+  range: Range
 }
 
 interface Range {
@@ -13,14 +14,17 @@ interface Range {
   max: number
 }
 
+interface Alert {
+  title: string,
+  date: Date
+}
+
 interface MetricsStore {
   metrics: {
     [key: string]: MetricData
   },
-  ranges: {
-    [key: string]: Range
-  }
-  generateRandomMetrics: () => void
+  alerts: Alert[]
+  generateRandomState: () => void
 }
 
 export const useMetricsStore = create<MetricsStore>()((set) => ({
@@ -30,99 +34,97 @@ export const useMetricsStore = create<MetricsStore>()((set) => ({
       abr: "CPU",
       values: [],
       color: "",
-      unit: "%"
+      unit: "%",
+      range: {
+        min: 0,
+        max: 100
+      }
     },
     ram: {
       abr: "RAM",
       values: [],
       color: "",
-      unit: "GB"
+      unit: "GB",
+      range: {
+        min: 0,
+        max: 5
+      }
     },
     storage: {
       abr: "STG",
       values: [],
       color: "",
-      unit: "%"
+      unit: "%",
+      range: {
+        min: 0,
+        max: 100,
+      }
     },
     bandwidth: {
       abr: "BW",
       values: [],
       color: "",
-      unit: "Mbps"
+      unit: "Mbps",
+      range: {
+        min: 0,
+        max: 1000
+      }
     },
     temperature: {
       abr: "TEMP",
       values: [],
       color: "",
-      unit: "ºC"
+      unit: "ºC",
+      range: {
+        min: 0,
+        max: 100
+      }
     },
     response_time: {
       abr: "RT",
       values: [],
       color: "",
-      unit: "ms"
+      unit: "ms",
+      range: {
+        min: 0,
+        max: 600
+      }
     },
     connections: {
       abr: "CONEX",
       values: [],
       color: "",
-      unit: ""
+      unit: "",
+      range: {
+        min: 0,
+        max: 10000
+      }
     },
     database_delay: {
       abr: "DB",
       values: [],
       color: "",
-      unit: "ms"
+      unit: "ms",
+      range: {
+        min: 0,
+        max: 1000
+      }
     },
     responses_per_second: {
       abr: "RPS",
       values: [],
       color: "",
-      unit: ""
+      unit: "",
+      range: {
+        min: 0,
+        max: 5000
+      }
     }
   },
 
-  ranges: {
-    cpu: {
-      min: 0,
-      max: 100
-    },
-    ram: {
-      min: 0,
-      max: 5
-    },
-    storage: {
-      min: 0,
-      max: 100,
-    },
-    bandwidth: {
-      min: 0,
-      max: 1000
-    },
-    temperature: {
-      min: 0,
-      max: 100
-    },
-    response_time: {
-      min: 0,
-      max: 600
-    },
-    connections: {
-      min: 0,
-      max: 10000
-    },
-    database_delay: {
-      min: 0,
-      max: 1000
-    },
-    responses_per_second: {
-      min: 0,
-      max: 5000
-    }
-  },
+  alerts : [],
 
-  generateRandomMetrics: () => {
-
+  generateRandomState: () => {
     const generatedCpuData = generateData(10, 1, 100);
     const generatedRamData = generateData(10, 2, 5);
     const generatedStorageData = generateData(10, 1, 100);
@@ -132,6 +134,7 @@ export const useMetricsStore = create<MetricsStore>()((set) => ({
     const generatedConnectionsData = generateData(10, 50, 10000);
     const generatedDatabaseDelayData = generateData(10, 50, 1000);
     const generatedResponsesPerSecondData = generateData(10, 20, 5000);
+    const generatedAlerts = generateRandomAlerts(10);
 
     return set((prevState) => ({
       metrics: {
@@ -171,7 +174,9 @@ export const useMetricsStore = create<MetricsStore>()((set) => ({
           values: generatedResponsesPerSecondData.values,
           color: generatedResponsesPerSecondData.color
         }
-      }
+      },
+
+      alerts: generatedAlerts
     }))
   }
 
