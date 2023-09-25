@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // @ts-ignore
 import CanvasJS from "@canvasjs/charts";
-import { useMetricsStore } from "../../store/MetricsStore";
+import { useGlobalStore } from "../../store/GlobalStore";
 
 interface DoughnutChartProps {
   name: string,
@@ -13,7 +13,7 @@ interface DoughnutChartProps {
 
 export const DoughnutChart : React.FC<DoughnutChartProps> = ({name, values, color, unit, abr}) => {
 
-  const {max} = useMetricsStore(state => state.metrics[name].range);
+  const {max} = useGlobalStore(state => state.metrics[name].range);
 
   useEffect(() => {
     const chart = new CanvasJS.Chart(`chart-${name}`, {

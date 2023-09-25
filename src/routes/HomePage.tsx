@@ -1,11 +1,11 @@
-import { SmallMetric } from "../components"
+import { SmallMetricSection } from "../components"
 import { AlertsSection } from "../components/Sections/AlertsSection"
 import { Topbar } from "../layouts"
-import { useMetricsStore } from "../store/MetricsStore"
+import { useGlobalStore } from "../store/GlobalStore"
 
 export const HomePage = () => {
 
-  const alerts = useMetricsStore(state => state.alerts);
+  const alerts = useGlobalStore(state => state.alerts);
 
   return (
     <main>
@@ -15,21 +15,21 @@ export const HomePage = () => {
         <div className="home__server-section">
           <h2>SERVER PERFORMANCE</h2>
           <div className="home__server-container">
-            <SmallMetric name="cpu"/>
-            <SmallMetric name="ram" />
-            <SmallMetric name="storage" />
-            <SmallMetric name="bandwidth" />
-            <SmallMetric name="temperature" />
+            <SmallMetricSection name="cpu"/>
+            <SmallMetricSection name="ram" />
+            <SmallMetricSection name="storage" />
+            <SmallMetricSection name="bandwidth" />
+            <SmallMetricSection name="temperature" />
           </div>
 
         </div>
         <div className="home__app-section">
           <h2>APP PERFORMANCE</h2>
           <div className="home__app-container">
-            <SmallMetric name="response_time"/>
-            <SmallMetric name="connections"/>
-            <SmallMetric name="database_delay"/>
-            <SmallMetric name="responses_per_second"/>
+            <SmallMetricSection name="response_time"/>
+            <SmallMetricSection name="connections"/>
+            <SmallMetricSection name="database_delay"/>
+            <SmallMetricSection name="responses_per_second"/>
           </div>
 
         </div>

@@ -1,4 +1,4 @@
-import { Metric } from "../components"
+import { MetricSection } from "../components"
 import { Topbar } from "../layouts"
 
 export const AppPage = () => {
@@ -7,19 +7,19 @@ export const AppPage = () => {
       <Topbar title="APP PERFORMANCE"/>
 
       <div className="app__container">
-        <Metric
+        <MetricSection
           name="response_time" 
           type="splineArea"
         />
-        <Metric
+        <MetricSection
           name="responses_per_second" 
           type="doughnut"
         />
-        <Metric
+        <MetricSection
           name="connections" 
           type="doughnut"
         />
-        <Metric
+        <MetricSection
           name="database_delay" 
           type="splineArea"
         />

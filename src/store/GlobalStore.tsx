@@ -19,7 +19,7 @@ interface Alert {
   date: Date
 }
 
-interface MetricsStore {
+interface GlobalStore {
   metrics: {
     [key: string]: MetricData
   },
@@ -27,7 +27,7 @@ interface MetricsStore {
   generateRandomState: () => void
 }
 
-export const useMetricsStore = create<MetricsStore>()((set) => ({
+export const useGlobalStore = create<GlobalStore>()((set) => ({
 
   metrics: {
     cpu: {

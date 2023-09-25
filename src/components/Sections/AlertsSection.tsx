@@ -1,6 +1,7 @@
 import { Alert } from "../Alert"
 
 import { formatDate } from "../../helpers"
+import React from "react"
 
 interface Alert {
   title: string,
@@ -12,7 +13,7 @@ interface AlertsSectionProps {
   alerts: Alert[]
 }
 
-export const AlertsSection = ({title, alerts}) => {
+export const AlertsSection : React.FC<AlertsSectionProps> = ({title, alerts}) => {
 
   return (
     <div className={`section section-${title}`}>

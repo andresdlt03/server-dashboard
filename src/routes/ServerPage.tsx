@@ -1,4 +1,4 @@
-import { Metric } from "../components"
+import { MetricSection } from "../components"
 import { Topbar } from "../layouts"
 
 export const ServerPage = () => {
@@ -7,19 +7,19 @@ export const ServerPage = () => {
       <Topbar title="SERVER PERFORMANCE" />
 
       <div className="server__container">
-        <Metric 
+        <MetricSection 
           name="cpu" 
           type="doughnut"/>
-        <Metric 
+        <MetricSection 
           name="storage" 
           type="splineArea"/>
-        <Metric 
+        <MetricSection 
           name="bandwidth" 
           type="splineArea"/>
-        <Metric 
+        <MetricSection 
           name="temperature" 
           type="doughnut"/>
-        <Metric 
+        <MetricSection 
           name="ram" 
           type="splineArea"/>
       </div>

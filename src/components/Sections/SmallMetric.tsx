@@ -1,13 +1,13 @@
 import { HomeChart } from ".."
-import { useMetricsStore } from "../../store/MetricsStore"
+import { useGlobalStore } from "../../store/GlobalStore"
 
-interface SmallMetricProps {
+interface SmallMetricSectionProps {
   name: string,
 }
 
-export const SmallMetric : React.FC<SmallMetricProps> = ({name}) => {
+export const SmallMetricSection : React.FC<SmallMetricSectionProps> = ({name}) => {
 
-  const {abr, values, color, unit} = useMetricsStore(state => state.metrics[name]);
+  const {abr, values, color, unit} = useGlobalStore(state => state.metrics[name]);
 
   return (
     <div className="home-metric">

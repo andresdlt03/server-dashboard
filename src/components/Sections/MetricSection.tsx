@@ -1,14 +1,14 @@
-import { useMetricsStore } from "../../store/MetricsStore"
+import { useGlobalStore } from "../../store/GlobalStore"
 import { SplineAreaChart, DoughnutChart } from "../Charts"
 
-interface MetricProps {
+interface MetricSectionProps {
   name: string,
   type: string
 }
 
-export const Metric : React.FC<MetricProps> = ({name, type}) => {
+export const MetricSection : React.FC<MetricSectionProps> = ({name, type}) => {
   
-  const {abr, values, color, unit} = useMetricsStore(state => state.metrics[name])
+  const {abr, values, color, unit} = useGlobalStore(state => state.metrics[name])
 
   return (
     <div className={`section section-${name}`}>

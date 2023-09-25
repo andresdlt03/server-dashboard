@@ -1,2 +1,2 @@
-export * from "./Metric"
+export * from "./MetricSection"
 export * from "./SmallMetric"

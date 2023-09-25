@@ -1,5 +1,5 @@
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
-import { useMetricsStore } from "./store/MetricsStore"
+import { useGlobalStore } from "./store/GlobalStore"
 
 import { Layout } from "./layouts"
 import { HomePage, ServerPage, AppPage } from "./routes"
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
 
 export const App = () => {
 
-  const generateState = useMetricsStore(state => state.generateRandomState);
+  const generateState = useGlobalStore(state => state.generateRandomState);
   generateState();
 
   return (
