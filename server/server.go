@@ -53,7 +53,7 @@ func startTCPServer() {
 	}
 }
 
-// Starts TCP server and launch a goroutine (handlers.HandleTCPConnection) to handle the UDPConnection
+// Starts UDP server and launch a goroutine (handlers.HandleUDPConnection) to handle the UDPConnection
 func startUDPServer() {
 	fmt.Println("UDP listening...")
 
