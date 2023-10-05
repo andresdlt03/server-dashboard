@@ -23,7 +23,7 @@ func HandleTCPConnection(connection net.Conn) {
 			return
 		}
 
-		handleMessageType(data)
+		handleMessage(data)
 
 	}
 }
@@ -44,7 +44,7 @@ func HandleUDPConnection(connection net.UDPConn) {
 			return
 		}
 
-		handleMessageType(data)
+		handleMessage(data)
 
 	}
 

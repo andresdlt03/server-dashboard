@@ -20,7 +20,7 @@ type DataPayload struct {
 	Value float32 `json:"value"`
 }
 
-func handleMessageType(data Message) {
+func handleMessage(data Message) {
 
 	switch data.Type {
 
@@ -30,9 +30,6 @@ func handleMessageType(data Message) {
 			fmt.Println(err)
 			return
 		}
-		// fmt.Println("\nMensaje de alerta:")
-		// fmt.Println("Fecha:", payload.Date)
-		// fmt.Println("Evento:", payload.Event)
 
 	case "data":
 		var payload DataPayload
@@ -40,9 +37,6 @@ func handleMessageType(data Message) {
 			fmt.Println(err)
 			return
 		}
-		// fmt.Println("\nMensaje de datos:")
-		// fmt.Println("Nombre:", payload.Name)
-		// fmt.Println("Valor:", payload.Value)
 
 	default:
 		fmt.Println("Unknown message type:", data.Type)
