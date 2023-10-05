@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 )
 
@@ -20,26 +22,42 @@ type DataPayload struct {
 	Value float32 `json:"value"`
 }
 
-func handleMessage(data Message) {
+type PayloadFactory func(json.Decoder) (interface{}, error)
 
-	switch data.Type {
-
-	case "alert":
-		var payload AlertPayload
-		if err := json.Unmarshal(data.Payload, &payload); err != nil {
-			fmt.Println(err)
-			return
+// Map that returns a payload based on type field
+var payloadRegistry = map[string]PayloadFactory{
+	"alert": func(dec json.Decoder) (interface{}, error) {
+		payload := AlertPayload{}
+		if err := dec.Decode(&payload); err != nil {
+			return nil, err
 		}
-
-	case "data":
-		var payload DataPayload
-		if err := json.Unmarshal(data.Payload, &payload); err != nil {
-			fmt.Println(err)
-			return
+		return payload, nil
+	},
+	"data": func(dec json.Decoder) (interface{}, error) {
+		payload := DataPayload{}
+		if err := dec.Decode(&payload); err != nil {
+			return nil, err
 		}
+		return payload, nil
+	},
+}
 
-	default:
-		fmt.Println("Unknown message type:", data.Type)
+func handleMessage(data Message) error {
+
+	var dec = json.NewDecoder(bytes.NewReader([]byte(data.Payload)))
+	dec.DisallowUnknownFields()
+
+	if payloadRegistry[data.Type] == nil {
+		return errors.New("unknown message type")
 	}
+
+	payload, err := payloadRegistry[data.Type](*dec)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(payload)
+
+	return nil
 
 }
