@@ -20,7 +20,7 @@ var (
 )
 
 // Function that launch the TCP and UDP servers in different goroutines
-func startServer() {
+func StartServer() {
 
 	fmt.Println("Starting server...")
 

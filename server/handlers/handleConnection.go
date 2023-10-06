@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net"
 )
 
@@ -23,7 +24,10 @@ func HandleTCPConnection(connection net.Conn) {
 			return
 		}
 
-		handleMessage(data)
+		err = handleMessage(data)
+		if err != nil {
+			fmt.Println(err)
+		}
 
 	}
 }
@@ -44,8 +48,10 @@ func HandleUDPConnection(connection net.UDPConn) {
 			return
 		}
 
-		handleMessage(data)
-
+		err = handleMessage(data)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 
 }

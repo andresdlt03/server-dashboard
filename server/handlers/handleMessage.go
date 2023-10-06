@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"server-dashboard/log"
 )
 
 type Message struct {
@@ -47,16 +48,24 @@ func handleMessage(data Message) error {
 	var dec = json.NewDecoder(bytes.NewReader([]byte(data.Payload)))
 	dec.DisallowUnknownFields()
 
-	if payloadRegistry[data.Type] == nil {
+	// TODO: TEST
+	if _, ok := payloadRegistry[data.Type]; !ok {
 		return errors.New("unknown message type")
 	}
 
 	payload, err := payloadRegistry[data.Type](*dec)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
-	fmt.Println(payload)
+	// At this point, the message is successfully validated
+	// and all its fields are correct
+
+	err = log.LogMessage(data.Type, payload)
+
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	return nil
 
