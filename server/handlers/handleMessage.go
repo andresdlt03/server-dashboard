@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"server-dashboard/global"
 	"server-dashboard/log"
 )
 
@@ -61,7 +62,9 @@ func handleMessage(data Message) error {
 	// At this point, the message is successfully validated
 	// and all its fields are correct
 
-	err = log.LogMessage(data.Type, payload)
+	if global.Config.RegisterLog {
+		err = log.LogMessage(data.Type, payload)
+	}
 
 	if err != nil {
 		fmt.Println(err)
