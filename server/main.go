@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
+	"server-dashboard/api"
 	"server-dashboard/global"
+	"sync"
 )
 
 func main() {
@@ -12,6 +14,15 @@ func main() {
 
 	global.Config.RegisterLog = *registerLog
 
-	StartServer()
+	var wgMain sync.WaitGroup
+	wgMain.Add(2)
+
+	// TCP and UDP server that receives the data
+	go StartServer(&wgMain)
+
+	// Websocket server that dial and send the data with frontend
+	go api.StartWSServer(&wgMain)
+
+	wgMain.Wait()
 
 }

@@ -20,7 +20,6 @@ func HandleTCPConnection(connection net.Conn) {
 
 		if err != nil {
 			connection.Write([]byte(err.Error() + "\n"))
-			connection.Close()
 			return
 		}
 

@@ -20,7 +20,7 @@ func LogMessage(messageType string, payload interface{}) error {
 	var START_LOG_TIME = global.StartLogTime()
 
 	dir := "./log"
-	filename := messageType + "_" + strconv.FormatInt(START_LOG_TIME, 10) + ".csv"
+	filename := fmt.Sprintf("%v_%v.csv", messageType, strconv.FormatInt(START_LOG_TIME, 10))
 	filePath := filepath.Join(dir, filename)
 
 	file, err := os.OpenFile(filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
@@ -46,6 +46,7 @@ func LogMessage(messageType string, payload interface{}) error {
 
 	var record []string
 
+	//TODO:
 	// Handling the payload type on runtime with reflection
 	var payloadType reflect.Type = reflect.TypeOf(payload)
 	var payloadValue reflect.Value = reflect.ValueOf(payload)

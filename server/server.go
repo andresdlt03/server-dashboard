@@ -20,23 +20,25 @@ var (
 )
 
 // Function that launch the TCP and UDP servers in different goroutines
-func StartServer() {
+func StartServer(wgMain *sync.WaitGroup) {
+	defer wgMain.Done()
 
 	fmt.Println("Starting TCP/UDP server...")
 
-	var wg sync.WaitGroup
-	wg.Add(2)
+	var wgServer sync.WaitGroup
+	wgServer.Add(2)
 
-	go startTCPServer(wg)
-	go startUDPServer(wg)
+	go startTCPServer(&wgServer)
+	go startUDPServer(&wgServer)
 
-	wg.Wait()
+	wgServer.Wait()
 
 }
 
 // Starts TCP server and launch a goroutine (handlers.HandleTCPConnection) to handle the connection
 // It accepts more than one connection and handle each of them in different goroutines
-func startTCPServer(wg sync.WaitGroup) {
+func startTCPServer(wg *sync.WaitGroup) {
+	defer wg.Done()
 	fmt.Println("TCP listening...")
 	listenerTcp, err := net.ListenTCP("tcp", &tcpAddr)
 	if err != nil {
@@ -52,12 +54,11 @@ func startTCPServer(wg sync.WaitGroup) {
 
 		go handlers.HandleTCPConnection(connectionTcp)
 	}
-
-	wg.Done()
 }
 
 // Starts UDP server and launch a goroutine (handlers.HandleUDPConnection) to handle the UDPConnection
-func startUDPServer(wg sync.WaitGroup) {
+func startUDPServer(wg *sync.WaitGroup) {
+	defer wg.Done()
 	fmt.Println("UDP listening...")
 
 	connectionUdp, err := net.ListenUDP("udp", &udpAddr)
@@ -67,6 +68,4 @@ func startUDPServer(wg sync.WaitGroup) {
 	defer connectionUdp.Close()
 
 	handlers.HandleUDPConnection(*connectionUdp)
-
-	wg.Done()
 }

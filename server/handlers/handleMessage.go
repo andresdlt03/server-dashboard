@@ -49,7 +49,6 @@ func handleMessage(data Message) error {
 	var dec = json.NewDecoder(bytes.NewReader([]byte(data.Payload)))
 	dec.DisallowUnknownFields()
 
-	// TODO: TEST
 	if _, ok := payloadRegistry[data.Type]; !ok {
 		return errors.New("unknown message type")
 	}
