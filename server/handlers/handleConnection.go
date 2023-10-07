@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+	"server-dashboard/message"
 )
 
 func HandleTCPConnection(connection net.Conn) {
 
 	decoder := json.NewDecoder(connection)
 
-	var data Message
+	var data message.Message
 
 	defer connection.Close()
 
@@ -35,7 +36,7 @@ func HandleUDPConnection(connection net.UDPConn) {
 
 	decoder := json.NewDecoder(&connection)
 
-	var data Message
+	var data message.Message
 
 	defer connection.Close()
 

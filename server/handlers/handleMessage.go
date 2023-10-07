@@ -7,36 +7,22 @@ import (
 	"fmt"
 	"server-dashboard/global"
 	"server-dashboard/log"
+	"server-dashboard/message"
 )
 
-type Message struct {
-	Type    string          `json:"type"`
-	Payload json.RawMessage `json:"payload"`
-}
-
-type AlertPayload struct {
-	Date  int64  `json:"date"`
-	Event string `json:"event"`
-}
-
-type DataPayload struct {
-	Name  string  `json:"name"`
-	Value float32 `json:"value"`
-}
-
-type PayloadFactory func(json.Decoder) (interface{}, error)
+type PayloadFactory func(json.Decoder) (message.MessagePayload, error)
 
 // Map that returns a payload based on type field
 var payloadRegistry = map[string]PayloadFactory{
-	"alert": func(dec json.Decoder) (interface{}, error) {
-		payload := AlertPayload{}
+	"alert": func(dec json.Decoder) (message.MessagePayload, error) {
+		payload := message.AlertPayload{}
 		if err := dec.Decode(&payload); err != nil {
 			return nil, err
 		}
 		return payload, nil
 	},
-	"data": func(dec json.Decoder) (interface{}, error) {
-		payload := DataPayload{}
+	"data": func(dec json.Decoder) (message.MessagePayload, error) {
+		payload := message.DataPayload{}
 		if err := dec.Decode(&payload); err != nil {
 			return nil, err
 		}
@@ -44,7 +30,7 @@ var payloadRegistry = map[string]PayloadFactory{
 	},
 }
 
-func handleMessage(data Message) error {
+func handleMessage(data message.Message) error {
 
 	var dec = json.NewDecoder(bytes.NewReader([]byte(data.Payload)))
 	dec.DisallowUnknownFields()

@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"server-dashboard/global"
+	"server-dashboard/message"
 	"strconv"
 )
 
@@ -14,68 +15,47 @@ var logHeaders = map[string][]string{
 	"data":  {"name", "value"},
 }
 
-var File struct {
+type File struct {
 	file     *os.File
+	headers  []string
 	filename string
 	filePath string
 }
 
-func LogMessage(messageType string, payload interface{}) error {
+var FileDirectory = map[string]File{
+	"alert": {},
+	"data":  {},
+}
+
+func LogMessage(messageType string, payload message.MessagePayload) error {
 
 	var START_LOG_TIME = global.StartLogTime()
 
-	dir := "./log"
-	File.filename = fmt.Sprintf("%v_%v.csv", messageType, strconv.FormatInt(START_LOG_TIME, 10))
-	File.filePath = filepath.Join(dir, File.filename)
+	var file = FileDirectory[messageType]
 
-	if File.file == nil {
-		file, err := os.OpenFile(File.filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	dir := "./log"
+	file.filename = fmt.Sprintf("%v_%v.csv", messageType, strconv.FormatInt(START_LOG_TIME, 10))
+	file.filePath = filepath.Join(dir, file.filename)
+
+	if file.file == nil {
+		f, err := os.OpenFile(file.filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
 		if err != nil {
 			return err
 		}
-		File.file = file
+		file.file = f
 	}
 
-	defer File.file.Close() // ya no se debería de cerrar hasta que acabe la conexión
+	writer := csv.NewWriter(file.file)
 
-	writer := csv.NewWriter(File.file)
-
-	fileInfo, err := os.Stat(File.filePath)
-	if err != nil {
-		return err
+	if file.headers == nil {
+		file.headers = logHeaders[messageType]
+		writer.Write(file.headers)
 	}
 
-	// If file is empty, write the headers
-	if fileInfo.Size() == 0 {
-		headers, ok := logHeaders[messageType]
-		if ok {
-			writer.Write(headers)
-		}
-	}
-
-	var record []string
-
-	// //TODO:
-	// // Handling the payload type on runtime with reflection
-	// var payloadType reflect.Type = reflect.TypeOf(payload)
-	// var payloadValue reflect.Value = reflect.ValueOf(payload)
-
-	// if payloadType.Kind() == reflect.Struct {
-	// 	for i := 0; i < payloadType.NumField(); i++ {
-	// 		fieldValue := payloadValue.Field(i)
-
-	// 		fieldString := fmt.Sprintf("%v", fieldValue.Interface())
-
-	// 		record = append(record, fieldString)
-	// 	}
-	// }
+	record := payload.UnmarshalValues()
 
 	writer.Write(record)
 	writer.Flush()
-
-	if err = writer.Error(); err != nil {
-		return err
-	}
 
 	return nil
 }
