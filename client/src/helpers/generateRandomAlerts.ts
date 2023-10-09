@@ -1,14 +1,11 @@
 import { generateRandomDate } from "./generateRandomDate"
+import { Alert } from "../store/GlobalStore"
+
 
 /**
- * Function that returns an array of random Alerts, with a title and random date
+ * Function that returns an array of random Alerts, with a key, title and random date
  * @param num 
  */
-
-interface Alert {
-  title: string,
-  date: Date
-}
 
 export const generateRandomAlerts = (num: number) : Alert[] => {
   

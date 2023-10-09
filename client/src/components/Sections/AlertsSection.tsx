@@ -1,12 +1,8 @@
-import { Alert } from "../Alert"
+import { AlertComponent } from "../AlertComponent"
+import { Alert } from "../../store/GlobalStore"
 
 import { formatDate } from "../../helpers"
 import React from "react"
-
-interface Alert {
-  title: string,
-  date: Date
-}
 
 interface AlertsSectionProps {
   title: string,
@@ -25,7 +21,7 @@ export const AlertsSection : React.FC<AlertsSectionProps> = ({title, alerts}) =>
       <div className="alerts__container">
         
         { alerts.map((alert : Alert) => (
-          <Alert alert={alert}/>
+          <AlertComponent alert={alert}/>
         )) }
 
       </div>

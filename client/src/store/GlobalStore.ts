@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { generateData, generateRandomAlerts } from '../helpers';
 
-interface MetricData {
+export interface MetricData {
   abr: string,
   values: number[],
   color: string,
@@ -9,21 +9,23 @@ interface MetricData {
   range: Range
 }
 
-interface Range {
+export interface Range {
   min: number,
   max: number
 }
 
-interface Alert {
-  title: string,
+export interface Alert {
+  name: string,
   date: Date
 }
 
-interface GlobalStore {
+export interface GlobalStore {
   metrics: {
     [key: string]: MetricData
   },
   alerts: Alert[]
+  insertMetricValue: (name: string, value: number) => void,
+  insertAlert: (date: Date, event: string) => void,
   generateRandomState: () => void
 }
 
@@ -123,6 +125,30 @@ export const useGlobalStore = create<GlobalStore>()((set) => ({
   },
 
   alerts : [],
+
+  insertMetricValue: (name: string, value: number) => {
+    return set((prevState) => {
+      const metrics = { ...prevState.metrics }
+
+      if (metrics.hasOwnProperty(name)) {
+        // Clona la métrica específica y agrega el valor al array "values"
+        metrics[name] = {
+          ...metrics[name],
+          values: [...metrics[name].values, value],
+        };
+      }
+
+      return {
+        metrics: {
+          ...metrics,
+        },
+      }
+    }
+  )},
+
+  insertAlert: (date: Date, event: string) => {
+    //TODO:
+  },
 
   generateRandomState: () => {
     const generatedCpuData = generateData(10, 1, 100);

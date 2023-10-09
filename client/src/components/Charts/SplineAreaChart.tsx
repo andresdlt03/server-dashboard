@@ -12,7 +12,7 @@ interface SplineAreaChartProps {
   abr: string,
 }
 
-export const SplineAreaChart : React.FC<SplineAreaChartProps> = ({name, values, color, abr, unit}) => {
+export const SplineAreaChart : React.FC<SplineAreaChartProps> = ({name, values, color}) => {
   useEffect(() => {
     const chart = new CanvasJS.Chart(`chart-${name}`, {
       animationDuration: 1000,

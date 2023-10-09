@@ -1,10 +1,11 @@
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
-import { useGlobalStore } from "./store/GlobalStore"
+import useWebSocket  from "react-use-websocket"
 
 import { Layout } from "./layouts"
 import { HomePage, ServerPage, AppPage } from "./routes"
 
 import "./styles/main.scss"
+import { handleMessage } from "./api/api"
 
 const router = createBrowserRouter([
   {
@@ -31,10 +32,22 @@ const router = createBrowserRouter([
   }
 ])
 
+const WS_URL = "ws://localhost:8082"
+
 export const App = () => {
 
-  const generateState = useGlobalStore(state => state.generateRandomState);
-  generateState();
+  useWebSocket(WS_URL, {
+    onOpen: () => {
+      console.log("Websocket connection established")
+    },
+    onMessage: (event) => {
+      handleMessage(event.data)
+    }
+  })
+
+  // GenerateState was used when there was no server that sent data to the front-end.
+  // const generateState = useGlobalStore(state => state.generateRandomState);
+  // generateState();
 
   return (
     <RouterProvider router={router} />
