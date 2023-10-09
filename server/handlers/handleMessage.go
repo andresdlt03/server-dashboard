@@ -30,6 +30,9 @@ var payloadRegistry = map[string]PayloadFactory{
 	},
 }
 
+// Channel to send messages to websocket
+var WSChannel = make(chan []byte)
+
 func handleMessage(data message.Message) error {
 
 	var dec = json.NewDecoder(bytes.NewReader([]byte(data.Payload)))
@@ -49,11 +52,18 @@ func handleMessage(data message.Message) error {
 
 	if global.Config.RegisterLog {
 		err = log.LogMessage(data.Type, payload)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 
+	// Parse the message to JSON
+	message, err := json.Marshal(data)
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	WSChannel <- message
 
 	return nil
 
