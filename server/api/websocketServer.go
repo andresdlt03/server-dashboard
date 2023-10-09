@@ -1,13 +1,13 @@
 package api
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"server-dashboard/handlers"
 	"sync"
 
 	"nhooyr.io/websocket"
+	"nhooyr.io/websocket/wsjson"
 )
 
 var WSChannel = handlers.WSChannel
@@ -19,24 +19,21 @@ var options = websocket.AcceptOptions{
 func handleWSConn(w http.ResponseWriter, r *http.Request) {
 
 	wsconn, err := websocket.Accept(w, r, &options)
+	wsconn.CloseRead(r.Context())
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for {
 
-		writer, err := wsconn.Writer(context.TODO(), websocket.MessageText)
-
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
-		//FIXME: ERROR AL DESCONECTAR EL CLIENTE
 		select {
 		case message := <-WSChannel:
-			writer.Write(message)
-			writer.Close()
+			wsjson.Write(r.Context(), wsconn, message)
 		case <-r.Context().Done():
 			return
 		}
