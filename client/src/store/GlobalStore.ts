@@ -16,7 +16,7 @@ export interface Range {
 }
 
 export interface Alert {
-  name: string,
+  event: string,
   date: Date
 }
 
@@ -25,8 +25,6 @@ export interface GlobalStore {
     [key: string]: MetricData
   },
   alerts: Alert[]
-  // insertMetricValue: (name: string, value: number) => void,
-  insertAlert: (date: Date, event: string) => void,
   generateRandomState: () => void
 }
 
@@ -126,38 +124,6 @@ export const useGlobalStore = create<GlobalStore>()(set => ({
   },
 
   alerts : [],
-
-  // insertMetricValue: (name: string, value: number) => {
-  //   return set((prevState) => {
-  //     const metrics = { ...prevState.metrics };
-  
-  //     if (metrics.hasOwnProperty(name)) {
-  //       // Create a new array with the updated values
-  //       const updatedValues = [...metrics[name].values, value];
-  
-  //       // Calculate the new color
-  //       const generatedColor = generateColor(metrics[name].range, value);
-  
-  //       // Create a new metric object with updated values and color
-  //       const updatedMetric = {
-  //         ...metrics[name],
-  //         values: updatedValues,
-  //         color: generatedColor,
-  //       };
-  
-  //       // Update the metrics object with the new metric
-  //       metrics[name] = updatedMetric;
-  //     }
-  
-  //     return {
-  //       metrics: { ...metrics },
-  //     };
-  //   });
-  // },
-
-  insertAlert: (date: Date, event: string) => {
-    //TODO:
-  },
 
   generateRandomState: () => {
     const generatedCpuData = generateData(10, 1, 100);

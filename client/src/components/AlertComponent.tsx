@@ -8,7 +8,7 @@ interface AlertComponentProps {
 export const AlertComponent : React.FC<AlertComponentProps> = ({alert}) => {
   return (
     <div className="alert">
-      <p>{alert.name} - {formatTime(alert.date)}</p>
+      <p>{alert.event} - {formatTime(alert.date)}</p>
     </div>
   )
 }

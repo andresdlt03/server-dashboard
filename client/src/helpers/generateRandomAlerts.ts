@@ -21,7 +21,7 @@ export const generateRandomAlerts = (num: number) : Alert[] => {
 
   for(let i = 0; i < num; i++) {
     result[i] = {
-      title: alertTitles[getRandomInt(0, alertTitles.length)],
+      event: alertTitles[getRandomInt(0, alertTitles.length)],
       date: generateRandomDate()
     }
   }

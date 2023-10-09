@@ -56,11 +56,26 @@ function handleData(data : DataPayload) {
       }
   
       return {
+        ...prevState,
         metrics: { ...metrics },
       };
   })
 }
 
-function handleAlert(alert : AlertPayload) {
-  //TODO: 
+function handleAlert(data : AlertPayload) {
+
+  useGlobalStore.setState((prevState) => {
+
+    const alert = {
+      event: data.event,
+      date: new Date(data.date),
+    }
+
+    return {
+      ...prevState,
+      alerts: [  ...prevState.alerts, alert ]
+    }
+
+  })
+	
 }

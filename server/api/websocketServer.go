@@ -24,7 +24,7 @@ func handleWSConn(w http.ResponseWriter, r *http.Request) {
 	connections[wsconn] = true
 	wsconn.CloseRead(r.Context())
 	if err != nil {
-		connections[wsconn] = true
+		delete(connections, wsconn)
 		fmt.Println(err)
 	}
 
