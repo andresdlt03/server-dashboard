@@ -1,4 +1,5 @@
 import { useGlobalStore } from "../store/GlobalStore"
+import { generateColor } from "../helpers/generateColor"
 
 useGlobalStore
 
@@ -39,25 +40,27 @@ function handleData(data : DataPayload) {
 
   useGlobalStore.setState((prevState) => {
     const metrics = { ...prevState.metrics };
-      
-      // Verifica si la métrica con el nombre especificado existe
+  
       if (metrics.hasOwnProperty(name)) {
-        // Clona la métrica específica y agrega el valor al array "values"
-        metrics[name] = {
+        const updatedValues = [...metrics[name].values, value];
+  
+        const generatedColor = generateColor(metrics[name].range, value);
+  
+        const updatedMetric = {
           ...metrics[name],
-          values: [...metrics[name].values, value],
+          values: updatedValues,
+          color: generatedColor,
         };
+  
+        metrics[name] = updatedMetric;
       }
-
-      // Devuelve el nuevo estado con las métricas actualizadas
+  
       return {
-        metrics: {
-          ...metrics,
-        },
+        metrics: { ...metrics },
       };
   })
 }
 
 function handleAlert(alert : AlertPayload) {
-  
+  //TODO: 
 }

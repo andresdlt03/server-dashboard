@@ -10,41 +10,42 @@ interface HomeChartProps {
   color: string
 }
 
+
+
 export const HomeChart : React.FC<HomeChartProps> = ({name, values, color}) => {
 
+
+
   useEffect(() => {
-    const chart = new CanvasJS.Chart(`chart-${name}`, {
-      animationDuration: 1000,
-      animationEnabled: true,
-      title: {
+  const chart = new CanvasJS.Chart(`chart-${name}`, {
+    title: {},
+    backgroundColor: "transparent",
+    height: 80,
+    axisX: {
+      lineThickness: 0,
+      gridThickness: 0,
+      tickThickness: 0,
+      labelFormatter: () => ""
+    },
+    axisY: {
+      lineThickness: 0,
+      gridThickness: 0,
+      tickThickness: 0,
+      labelFormatter: () => ""
+    },
+    toolTip: {
+      enabled: false
+    },
+    data: [
+      {
+        type: 'spline',
+        color: `${color}`,
+        dataPoints: generatePoints(5, values, true),
       },
-      backgroundColor: "transparent",
-      height: 80,
-      axisX: {
-        lineThickness: 0,
-        gridThickness: 0,
-        tickThickness: 0,
-        labelFormatter: () => ""
-      },
-      axisY: {
-        lineThickness: 0,
-        gridThickness: 0,
-        tickThickness: 0,
-        labelFormatter: () => ""
-      },
-      toolTip: {
-        enabled: false
-      },
-      data: [
-        {
-          type: 'spline',
-          color: `${color}`,
-          dataPoints: generatePoints(5, values, true),
-        },
-      ],
-    });
+    ],
+  });
     chart.render();
-  }, []);
+  }, [values]);
 
   return (
     <div>

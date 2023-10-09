@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { generateData, generateRandomAlerts } from '../helpers';
+import { generateColor } from '../helpers/generateColor';
 
 export interface MetricData {
   abr: string,
@@ -24,12 +25,12 @@ export interface GlobalStore {
     [key: string]: MetricData
   },
   alerts: Alert[]
-  insertMetricValue: (name: string, value: number) => void,
+  // insertMetricValue: (name: string, value: number) => void,
   insertAlert: (date: Date, event: string) => void,
   generateRandomState: () => void
 }
 
-export const useGlobalStore = create<GlobalStore>()((set) => ({
+export const useGlobalStore = create<GlobalStore>()(set => ({
 
   metrics: {
     cpu: {
@@ -126,25 +127,33 @@ export const useGlobalStore = create<GlobalStore>()((set) => ({
 
   alerts : [],
 
-  insertMetricValue: (name: string, value: number) => {
-    return set((prevState) => {
-      const metrics = { ...prevState.metrics }
-
-      if (metrics.hasOwnProperty(name)) {
-        // Clona la métrica específica y agrega el valor al array "values"
-        metrics[name] = {
-          ...metrics[name],
-          values: [...metrics[name].values, value],
-        };
-      }
-
-      return {
-        metrics: {
-          ...metrics,
-        },
-      }
-    }
-  )},
+  // insertMetricValue: (name: string, value: number) => {
+  //   return set((prevState) => {
+  //     const metrics = { ...prevState.metrics };
+  
+  //     if (metrics.hasOwnProperty(name)) {
+  //       // Create a new array with the updated values
+  //       const updatedValues = [...metrics[name].values, value];
+  
+  //       // Calculate the new color
+  //       const generatedColor = generateColor(metrics[name].range, value);
+  
+  //       // Create a new metric object with updated values and color
+  //       const updatedMetric = {
+  //         ...metrics[name],
+  //         values: updatedValues,
+  //         color: generatedColor,
+  //       };
+  
+  //       // Update the metrics object with the new metric
+  //       metrics[name] = updatedMetric;
+  //     }
+  
+  //     return {
+  //       metrics: { ...metrics },
+  //     };
+  //   });
+  // },
 
   insertAlert: (date: Date, event: string) => {
     //TODO:
@@ -160,45 +169,37 @@ export const useGlobalStore = create<GlobalStore>()((set) => ({
     const generatedConnectionsData = generateData(10, 50, 10000);
     const generatedDatabaseDelayData = generateData(10, 50, 1000);
     const generatedResponsesPerSecondData = generateData(10, 20, 5000);
+
     const generatedAlerts = generateRandomAlerts(10);
 
     return set((prevState) => ({
       metrics: {
         cpu: {...prevState.metrics.cpu,
-          values: generatedCpuData.values,
-          color: generatedCpuData.color
+          values: generatedCpuData
         },
         ram: {...prevState.metrics.ram,
-          values: generatedRamData.values,
-          color: generatedRamData.color
+          values: generatedRamData
         },
         storage: {...prevState.metrics.storage,
-          values: generatedStorageData.values,
-          color: generatedStorageData.color
+          values: generatedStorageData
         },
         bandwidth: {...prevState.metrics.bandwidth,
-          values: generatedBandwidthData.values,
-          color: generatedBandwidthData.color
+          values: generatedBandwidthData
         },
         temperature: {...prevState.metrics.temperature,
-          values: generatedTemperatureData.values,
-          color: generatedTemperatureData.color
+          values: generatedTemperatureData
         },
         response_time: {...prevState.metrics.response_time,
-          values: generatedResponseTimeData.values,
-          color: generatedResponseTimeData.color
+          values: generatedResponseTimeData
         },
         connections: {...prevState.metrics.connections,
-          values: generatedConnectionsData.values,
-          color: generatedConnectionsData.color
+          values: generatedConnectionsData
         },
         database_delay: {...prevState.metrics.database_delay,
-          values: generatedDatabaseDelayData.values,
-          color: generatedDatabaseDelayData.color
+          values: generatedDatabaseDelayData
         },
         responses_per_second: {...prevState.metrics.responses_per_second,
-          values: generatedResponsesPerSecondData.values,
-          color: generatedResponsesPerSecondData.color
+          values: generatedResponsesPerSecondData
         }
       },
 

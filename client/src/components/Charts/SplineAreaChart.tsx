@@ -37,12 +37,12 @@ export const SplineAreaChart : React.FC<SplineAreaChartProps> = ({name, values, 
           color: `${color}`,
           explodeOnClick: false,
           indexLabelFontColor: "white",
-          dataPoints: generatePoints(10, values, true),
+          dataPoints: generatePoints(5, values, true),
         },
       ],
     });
     chart.render();
-  }, []);
+  }, [values]);
 
   return (
     <div id={`chart-${name}`}></div>

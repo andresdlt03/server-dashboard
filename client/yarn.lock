@@ -1627,6 +1627,11 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
+zukeeper@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/zukeeper/-/zukeeper-1.0.2.tgz#7e5ff289af39001566b885a842e180b0e16860b8"
+  integrity sha512-mffz8JpzC96B3Gpoixklfl2/wY4KsYxZvgPRLFMIqAvEQeMPTjLYG8oUWXm9eoItU/nQ5Lt0G2b0GcZRDGzVgA==
+
 zustand@^4.4.1:
   version "4.4.1"
   resolved "https://registry.npmjs.org/zustand/-/zustand-4.4.1.tgz"
