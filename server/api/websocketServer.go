@@ -16,25 +16,34 @@ var options = websocket.AcceptOptions{
 	OriginPatterns: []string{"localhost:*"},
 }
 
+var connections = make(map[*websocket.Conn]bool)
+
 func handleWSConn(w http.ResponseWriter, r *http.Request) {
 
 	wsconn, err := websocket.Accept(w, r, &options)
+	connections[wsconn] = true
 	wsconn.CloseRead(r.Context())
 	if err != nil {
+		connections[wsconn] = true
 		fmt.Println(err)
 	}
 
 	for {
 
 		if err != nil {
+			connections[wsconn] = true
 			fmt.Println(err)
 			return
 		}
 
 		select {
 		case message := <-WSChannel:
-			wsjson.Write(r.Context(), wsconn, message)
+			for conn := range connections {
+				wsjson.Write(r.Context(), conn, message)
+			}
 		case <-r.Context().Done():
+			delete(connections, wsconn)
+			wsconn.Close(websocket.StatusNormalClosure, "Client disconnected")
 			return
 		}
 
