@@ -1,3 +1,4 @@
+import React from "react"
 import { formatTime } from "../helpers"
 import { Alert } from "../store/GlobalStore"
 

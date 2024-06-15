@@ -1,3 +1,4 @@
+import React from "react"
 import { SmallMetricSection } from "../components"
 import { AlertsSection } from "../components/Sections/AlertsSection"
 import { Topbar } from "../layouts"

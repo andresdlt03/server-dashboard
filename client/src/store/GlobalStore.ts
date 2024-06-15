@@ -141,30 +141,39 @@ export const useGlobalStore = create<GlobalStore>()(set => ({
     return set((prevState) => ({
       metrics: {
         cpu: {...prevState.metrics.cpu,
+          color: generateColor(prevState.metrics.cpu.range, generatedCpuData[generatedCpuData.length - 1]),
           values: generatedCpuData
         },
         ram: {...prevState.metrics.ram,
+          color: generateColor(prevState.metrics.ram.range, generatedRamData[generatedRamData.length - 1]),
           values: generatedRamData
         },
         storage: {...prevState.metrics.storage,
+          color: generateColor(prevState.metrics.storage.range, generatedStorageData[generatedStorageData.length - 1]),
           values: generatedStorageData
         },
         bandwidth: {...prevState.metrics.bandwidth,
+          color: generateColor(prevState.metrics.bandwidth.range, generatedBandwidthData[generatedBandwidthData.length - 1]),
           values: generatedBandwidthData
         },
         temperature: {...prevState.metrics.temperature,
+          color: generateColor(prevState.metrics.temperature.range, generatedTemperatureData[generatedTemperatureData.length - 1]),
           values: generatedTemperatureData
         },
         response_time: {...prevState.metrics.response_time,
+          color: generateColor(prevState.metrics.response_time.range, generatedResponseTimeData[generatedResponseTimeData.length - 1]),
           values: generatedResponseTimeData
         },
         connections: {...prevState.metrics.connections,
+          color: generateColor(prevState.metrics.connections.range, generatedConnectionsData[generatedConnectionsData.length - 1]),
           values: generatedConnectionsData
         },
         database_delay: {...prevState.metrics.database_delay,
+          color: generateColor(prevState.metrics.database_delay.range, generatedDatabaseDelayData[generatedDatabaseDelayData.length - 1]),
           values: generatedDatabaseDelayData
         },
         responses_per_second: {...prevState.metrics.responses_per_second,
+          color: generateColor(prevState.metrics.responses_per_second.range, generatedResponsesPerSecondData[generatedResponsesPerSecondData.length - 1]),
           values: generatedResponsesPerSecondData
         }
       },

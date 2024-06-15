@@ -14,8 +14,6 @@ interface HomeChartProps {
 
 export const HomeChart : React.FC<HomeChartProps> = ({name, values, color}) => {
 
-
-
   useEffect(() => {
   const chart = new CanvasJS.Chart(`chart-${name}`, {
     title: {},

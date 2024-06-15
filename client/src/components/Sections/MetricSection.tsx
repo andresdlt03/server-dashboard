@@ -1,3 +1,4 @@
+import React from "react"
 import { useGlobalStore } from "../../store/GlobalStore"
 import { SplineAreaChart, DoughnutChart } from "../Charts"
 
