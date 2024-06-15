@@ -1,3 +1,4 @@
+import React from "react"
 import { HomeChart } from ".."
 import { useGlobalStore } from "../../store/GlobalStore"
 

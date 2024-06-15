@@ -1,3 +1,4 @@
+import React from "react"
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 import useWebSocket  from "react-use-websocket"
 
@@ -6,6 +7,7 @@ import { HomePage, ServerPage, AppPage } from "./routes"
 
 import "./styles/main.scss"
 import { handleMessage } from "./api/api"
+import { useGlobalStore } from "./store/GlobalStore"
 
 const router = createBrowserRouter([
   {
@@ -45,9 +47,9 @@ export const App = () => {
     }
   })
 
-  // GenerateState was used when there was no server that sent data to the front-end.
-  // const generateState = useGlobalStore(state => state.generateRandomState);
-  // generateState();
+  //GenerateState was used when there was no server that sent data to the front-end.
+  const generateState = useGlobalStore(state => state.generateRandomState);
+  generateState();
 
   return (
     <RouterProvider router={router} />
